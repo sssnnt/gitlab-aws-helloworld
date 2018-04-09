@@ -1,13 +1,16 @@
-HelloWorld-CF
-==============
+AWS deployment of HelloWorld using Gitlab runner in AWS
+=======================================================
 
-An example of a deployment of a simple AWS CloudFormation template using a Gitlab runner.
+This repo demonstrates deployment of an AWS resource to AWS using a Gitlab runner in AWS. When the Gitlab pipeline is triggered an <a href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ECS_clusters.html" target="_blank">AWS ECS Cluster</a> Cloudformation template is <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-validate-template.html" target="_blank">validated</a> and <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-cli-creating-stack.html" target="_blank">deployed</a> to a specified AWS account.
 
-## Install HelloWorld-CF
-### Prerequisites
-* A Gitlab runner in an AWS account that can assume other AWS role. Such a Gitlab runner can be setup from this <a href="https://github.com/scaniadevtools/gitlab-runner" target="_blank">repo.</a>
-* An AWS account you can deploy cloudformation templates to.
-* A Gitlab account so you can fork this project.
+
+
+## InstallSetting up the project
+### Before you start
+To get this project up and running you need to have the folloing ready:
+* A Gitlab runner in an AWS account that can assume another AWS role. Such a Gitlab runner can be setup from this <a href="https://github.com/scaniadevtools/gitlab-runner" target="_blank">repo.</a> 
+* An AWS account (not neccessary the same account the Gitlab runner is deployed in)
+* A Gitlab account so you can fork this project and make changes to the files.
 
 ### Setup and install
 
