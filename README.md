@@ -5,7 +5,7 @@ An example of a deployment of a simple AWS CloudFormation template using a Gitla
 
 ## Install HelloWorld-CF
 ### Prerequisites
-* A Gitlab runner in an AWS account
+* A Gitlab runner in an AWS account that can assume other AWS role. Such a Gitlab runner can be setup from this <a href="https://github.com/scaniadevtools/gitlab-runner" target="_blank">repo.</a>
 * An AWS account you can deploy cloudformation templates to
 * A Gitlab account so you can fork this project
 
@@ -23,13 +23,12 @@ An example of a deployment of a simple AWS CloudFormation template using a Gitla
 
 ##### Set up permissions for the Gitlab runner
 
-You need to setup your Gitlab runner in AWS to have permissions to assume a role that has permissions to validate and create CloudFormation stacks (phew).
+You need to have have assume-role permissions on your Gitlab runner host in AWS to be able to validate and create CloudFormation stacks (phew).
 
-Your Gitlab runner need to have ``sts:AssumeRole`` permissions. An example of a CloudFormation template that creates the neccessary role, instance profile and policy can be found in the file ``aws-permissions/gitlabrunner-assume-role-permissions.yml``.
+Your Gitlab runner host need to have ``sts:AssumeRole`` permissions. An example of such a Gitlab runner can be setup from this <a href="https://github.com/scaniadevtools/gitlab-runner" target="_blank">repo.</a>
 
 __Important:__ We recommend naming this stack `gitlabrunner-access` because then the deployment role described below can be applied without any changes.
 
-You can launch the stack here <a href="https://console.aws.amazon.com/cloudformation/home#/stacks/new?stackName=gitlabrunner-access&amp;templateURL=https://s3-eu-west-1.amazonaws.com/scaniadevtools-aws-templates/helloworld-deploy-permissions.yml" target="_blank"><img src="https://cdn.rawgit.com/buildkite/cloudformation-launch-stack-button-svg/master/launch-stack.svg"></a>
 
 After having created a CloudFormation stack from this template in your AWS account you need to attach the role created by this template to your Gitlab runner host.
 
@@ -46,6 +45,8 @@ By applying the `aws/helloworld-deploy-permissions.yml` in your AWS account we c
 1. The CloudFormation template (the deploy role) need to be the applied in the account where the resulting AWS resource should be deployed. This may or may not be  the same AWS account as the one your Gitlab runner is running in. For example, you may have your Gitlab runner host running in your *Development* account but want to deploy the AWS resources to your *Production* account. 
 2. The role need to allow the Gitlab runner role (the one we created above) to assume this role so we need to get the names and references correct.
 The `aws/helloworld-deploy-permissions.yml` have a reference to ``arn:aws:iam::${GitlabRunnerAccount}:role/gitlab-runner-GitlabRunnerRole`` and this arn is made up of the AWS account id and the Gitlab role we created above. If you did not follow our recommendation and named the stack above to `gitlabrunner-access` you need to change this reference accordingly (i.e. change the ``gitlabrunner-access`` part of the arn) before applying the Cloudformation template.
+You can launch the stack directly in your AWS account here 
+You can launch the stack here <a href="https://console.aws.amazon.com/cloudformation/home#/stacks/new?stackName=gitlabrunner-access&amp;templateURL=https://s3-eu-west-1.amazonaws.com/scaniadevtools-aws-templates/helloworld-deploy-permissions.yml" target="_blank"><img src="https://cdn.rawgit.com/buildkite/cloudformation-launch-stack-button-svg/master/launch-stack.svg"></a>
 
 After creating the role using `aws/helloworld-deploy-permissions.yml` you will have a new role in your account named ``DeployRole`` with the following AWS permissions:
 
