@@ -13,7 +13,6 @@ validate-template:
   script:
     - aws cloudformation validate-template --template-body file://helloworld.yml --region eu-west-1 --profile assumed-profile
 
-
 deploy-to-account: 
   stage: deploy-helloworld-template
   variables:
