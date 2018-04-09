@@ -6,8 +6,8 @@ An example of a deployment of a simple AWS CloudFormation template using a Gitla
 ## Install HelloWorld-CF
 ### Prerequisites
 * A Gitlab runner in an AWS account that can assume other AWS role. Such a Gitlab runner can be setup from this <a href="https://github.com/scaniadevtools/gitlab-runner" target="_blank">repo.</a>
-* An AWS account you can deploy cloudformation templates to
-* A Gitlab account so you can fork this project
+* An AWS account you can deploy cloudformation templates to.
+* A Gitlab account so you can fork this project.
 
 ### Setup and install
 
