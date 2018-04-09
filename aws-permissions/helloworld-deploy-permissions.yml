@@ -1,0 +1,45 @@
+Description: To make cloudformation be able to deploy
+
+Parameters:
+    GitlabRunnerAccount:
+      Type: String
+      Description: The account where the Gitlab runner is. In AWS console click Support->Support Center. Account number.
+  
+Resources:
+  DeployRole:
+    Type: AWS::IAM::Role
+    Properties:
+      Path: /
+      RoleName: DeployRole
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              AWS: !Sub arn:aws:iam::${GitlabRunnerAccount}:role/gitlab-runner-GitlabRunnerRole 
+            Action: sts:AssumeRole  
+      ManagedPolicyArns:    
+      - !Ref DeployPolicy
+
+  DeployPolicy:
+    Type: AWS::IAM::ManagedPolicy
+    Properties:
+      ManagedPolicyName: DeployPolicy
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Action:
+              - cloudformation:ValidateTemplate
+              - cloudformation:CreateStack
+              - cloudformation:DescribeStacks
+              - ecs:DescribeClusters
+              - ecs:CreateCluster
+            Resource: "*"
+            
+Outputs:
+  DeployRole:
+    Description: Role to deploy cloudformation
+    Value: !GetAtt DeployRole.Arn
+    Export:
+      Name: !Sub ${AWS::StackName}-DeployRole
