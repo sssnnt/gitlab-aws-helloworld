@@ -29,7 +29,7 @@ Your Gitlab runner need to have ``sts:AssumeRole`` permissions. An example of a 
 
 __Important:__ We recommend naming this stack `gitlabrunner-access` because then the deployment role described below can be applied without any changes.
 
-You can launch the stack here. <a href="https://console.aws.amazon.com/cloudformation/home#/stacks/new?stackName=gitlabrunner-access&amp;templateURL=https://s3-eu-west-1.amazonaws.com/scaniadevtools-aws-templates/helloworld-deploy-permissions.yml" target="_blank"><img src="https://cdn.rawgit.com/buildkite/cloudformation-launch-stack-button-svg/master/launch-stack.svg"></a>
+You can launch the stack here <a href="https://console.aws.amazon.com/cloudformation/home#/stacks/new?stackName=gitlabrunner-access&amp;templateURL=https://s3-eu-west-1.amazonaws.com/scaniadevtools-aws-templates/helloworld-deploy-permissions.yml" target="_blank"><img src="https://cdn.rawgit.com/buildkite/cloudformation-launch-stack-button-svg/master/launch-stack.svg"></a>
 
 After having created a CloudFormation stack from this template in your AWS account you need to attach the role created by this template to your Gitlab runner host.
 
