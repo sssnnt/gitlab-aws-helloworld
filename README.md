@@ -1,24 +1,28 @@
 AWS deployment of HelloWorld using Gitlab runner in AWS
 =======================================================
 
+### If you are at the Github version of this repo you should head over to the Gitlab mirror <a href="https://gitlab.com/scaniadevtools/gitlab-samples/gitlab-aws-helloworld" target="_blank">here</a> and continue from there.
+
 This repo demonstrates deployment of an AWS resource to AWS using a Gitlab runner in AWS. When the Gitlab pipeline is triggered an <a href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ECS_clusters.html" target="_blank">AWS ECS Cluster</a> Cloudformation template is <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-validate-template.html" target="_blank">validated</a> and <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-cli-creating-stack.html" target="_blank">deployed</a> to a specified AWS account.
 
 
 
-## InstallSetting up the project
+## Setting up the project
 ### Before you start
 To get this project up and running you need to have the folloing ready:
 * A Gitlab runner in an AWS account that can assume another AWS role. Such a Gitlab runner can be setup from this <a href="https://github.com/scaniadevtools/gitlab-runner" target="_blank">repo.</a> 
 * An AWS account (not neccessary the same account the Gitlab runner is deployed in)
 * A Gitlab account so you can fork this project and make changes to the files.
 
-### Setup and install
+## Setup and install
+First make sure you are at the Gitlab mirror of this repo. If not click <a href="https://gitlab.com/scaniadevtools/gitlab-samples/gitlab-aws-helloworld" target="_blank">here</a> to navigate there.
 
 #### Fork the project
-* In this project navigate to "Overview"
+* In the Gitlab homepage for this project, click on  "Overview"
 * Click on "Fork"
 *![](images/install-fork.PNG)
 * Follow the instructions to fork the project
+> If your fork GUI looks different the reason might be that you are not in the Gitlab version of this repo. Then click <a href="https://gitlab.com/scaniadevtools/gitlab-samples/gitlab-aws-helloworld" target="_blank">https://gitlab.com/scaniadevtools/gitlab-samples/gitlab-aws-helloworld</a>. 
 
 #### Set up permissions in AWS
 
