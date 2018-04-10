@@ -12,6 +12,8 @@ validate-template:
     - assume -a ${AWS_ACCOUNTNO} -p assumed-profile
   script:
     - aws cloudformation validate-template --template-body file://helloworld.yml --region eu-west-1 --profile assumed-profile
+  tags:
+    - vanilla
 
 deploy-to-account: 
   stage: deploy-helloworld-template
@@ -22,4 +24,5 @@ deploy-to-account:
   script:
     - STACK_ID=$(aws cloudformation create-stack --stack-name hello-world --template-body file://helloworld.yml --region eu-west-1 --profile assumed-profile | jq -r '.StackId')
     - aws cloudformation wait stack-create-complete --stack-name $STACK_ID --profile assumed-profile --region eu-west-1
-
+  tags:
+    - vanilla
