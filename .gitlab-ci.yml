@@ -20,7 +20,7 @@ deploy-to-account:
   variables:
     AWS_ACCOUNTNO: "123456789012"
   before_script:
-    - assume -a ${AWS_ACCOUNTNO}
+    - assume -a ${AWS_ACCOUNTNO} -p assumed-profile
   script:
     - STACK_ID=$(aws cloudformation create-stack --stack-name hello-world --template-body file://helloworld.yml --region eu-west-1 --profile assumed-profile | jq -r '.StackId')
     - aws cloudformation wait stack-create-complete --stack-name $STACK_ID --profile assumed-profile --region eu-west-1
