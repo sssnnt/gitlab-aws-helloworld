@@ -27,7 +27,7 @@ In the description of the pull request, explain the changes that you made, any i
 - Celebrate your success after your pull request is merged!
 
 ## Where can I go for help?
-If you need help, you can ask questions on by filing and issue and label it "question".
+If you need help, you can ask questions on Github by filing an issue.
 
 ## What does the Code of Conduct mean for me?
 Our Code of Conduct means that you are responsible for treating everyone on the project with respect and courtesy regardless of their identity. If you are the victim of any inappropriate behavior or comments as described in our Code of Conduct, we are here for you and will do the best to ensure that the abuser is reprimanded appropriately, per our code.
