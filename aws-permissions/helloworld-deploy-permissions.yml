@@ -5,6 +5,10 @@ Parameters:
       Type: String
       Description: The account where the Gitlab runner is. In AWS console click Support->Support Center. Account number.
   
+    GitlabRunnerRoleName:
+      Type: String
+      Description: The Gitlab runner role name in AWS. Can sometimes be found here: https://console.aws.amazon.com/iam/home#/roles/GitlabRunnerRole (may require to be logged in). For the Role ARN arn:aws:iam::1234567890987:role/gitlab-runner-GitlabRunnerRole use "gitlab-runner-GitlabRunnerRole"
+
 Resources:
   DeployRole:
     Type: AWS::IAM::Role
@@ -16,7 +20,7 @@ Resources:
         Statement:
           - Effect: Allow
             Principal:
-              AWS: !Sub arn:aws:iam::${GitlabRunnerAccount}:role/GitlabRunnerRole 
+              AWS: !Sub arn:aws:iam::${GitlabRunnerAccount}:role/${GitlabRunnerRoleName}
             Action: sts:AssumeRole  
       ManagedPolicyArns:    
       - !Ref DeployPolicy
