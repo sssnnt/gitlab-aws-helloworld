@@ -1,5 +1,5 @@
 image: scaniadevtools/aws-deployer
-
+# Comment
 stages:
   - validate-helloworld-template 
   - deploy-helloworld-template
