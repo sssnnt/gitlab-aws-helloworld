@@ -22,7 +22,7 @@ To get this project up and running you need to have the folloing ready:
 #### Fork the project
 <a href="https://docs.gitlab.com/ee/gitlab-basics/fork-project.html" target="_blank">Fork</a> this project into your own Gitlab account.
 
-Now you should have your own copy of the project in your Gitlab account. From your terminal application, execute the following command (make sure to replace `<your_gitlab_username>` with your actual GitHub username):
+Now you should have your own copy of the project in your Gitlab account. From your terminal application, execute the following command (make sure to replace `<your_gitlab_username>` with your actual Gitlab username):
 ```bash
 git clone https://gitlab.com/<your_gitlab_username>/gitlab-aws-helloworld.git 
 ```
