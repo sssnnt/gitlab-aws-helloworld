@@ -7,7 +7,7 @@ Parameters:
   
     GitlabRunnerRoleName:
       Type: String
-      Description: The Gitlab runner role name in AWS. Can sometimes be found at https://console.aws.amazon.com/iam/home#/roles/GitlabRunnerRole (may require to be logged in). For the Role ARN arn:aws:iam::1234567890987:role/gitlab-runner-GitlabRunnerRole use "gitlab-runner-GitlabRunnerRole"
+      Description: The Gitlab runner role name in AWS. Can sometimes be found at https://console.aws.amazon.com/iam/home (may require you to be logged in). Example, for the Role ARN arn:aws:iam::1234567890987:role/gitlab-runner-GitlabRunnerRole use "gitlab-runner-GitlabRunnerRole"
 
 Resources:
   DeployRole:
