@@ -4,7 +4,7 @@ AWS deployment of HelloWorld using Gitlab runner in AWS
 
 This repo demonstrates deployment of an AWS resource to AWS using a Gitlab runner in AWS. When the Gitlab pipeline is triggered, a Cloudformation template is <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-validate-template.html" target="_blank">validated</a> and <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-cli-creating-stack.html" target="_blank">deployed</a> to a specified AWS account creating an an <a href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ECS_clusters.html" target="_blank">AWS ECS Cluster</a>.
 ___
-The Gitlab runner used in instructions below is setup from the Github repo [https://github.com/scaniadevtools/gitlab-runner](https://github.com/scaniadevtools/gitlab-runner) using AWS ECS, Docker and Cloudformation. If you have configured your runner differently the instructions in this repo may not apply.
+The Gitlab runner used in the instructions below is setup from the Github repo [https://github.com/scaniadevtools/gitlab-runner](https://github.com/scaniadevtools/gitlab-runner) using AWS ECS, Docker and Cloudformation. If you have configured your runner differently the instructions in this repo may not apply.
 
 # Setting up this project
 ## Before you start
@@ -50,7 +50,7 @@ We will now deploy a cloudformation template in AWS that creates a role with the
 6. On the "Review" page, check the "I acknowledge that AWS CloudFormation might create IAM resources with custom names." at the bottom of the page 
 7. Click "Create"
 8. Wait for the stack to be created
-9. When the stack is finished you should write down the name of the role that was created because we need it later. Select the newly created stack name in the Cloudformation console and select the "Outputs" tab and write down the value in the "Export name" column for the stack.
+9. When the stack is finished you should write down the name of the role that was created because we need it later. Select the newly created stack name in the Cloudformation console and select the "Outputs" tab and write down the value in the "Export Name" column for the stack.
 ![Cloudoformation output](images/cloudformation-output.png)
 
 ### Setup the AWS account and role in Gitlab

@@ -4,25 +4,20 @@ stages:
   - validate-helloworld-template 
   - deploy-helloworld-template
 
+before_script:
+  - assume -a ${AWS_ACCOUNTNO} -r ${DEPLOY_ROLE_NAME} -p assumed-profile
+
 validate-template: 
   stage: validate-helloworld-template
-  variables:
-    AWS_ACCOUNTNO: "123456789012"
-  before_script:
-    - assume -a ${AWS_ACCOUNTNO} -p assumed-profile
   script:
-    - aws cloudformation validate-template --template-body file://helloworld.yml --region eu-west-1 --profile assumed-profile
+    - aws cloudformation validate-template --template-body file://gitlab-aws-helloworld.yml --region eu-west-1 --profile assumed-profile
   tags:
     - vanilla
 
 deploy-to-account: 
   stage: deploy-helloworld-template
-  variables:
-    AWS_ACCOUNTNO: "123456789012"
-  before_script:
-    - assume -a ${AWS_ACCOUNTNO} -p assumed-profile
   script:
-    - STACK_ID=$(aws cloudformation create-stack --stack-name hello-world --template-body file://helloworld.yml --region eu-west-1 --profile assumed-profile | jq -r '.StackId')
+    - STACK_ID=$(aws cloudformation create-stack --stack-name gitlab-aws-helloworld --template-body file://gitlab-aws-helloworld.yml --region eu-west-1 --profile assumed-profile | jq -r '.StackId')
     - aws cloudformation wait stack-create-complete --stack-name $STACK_ID --profile assumed-profile --region eu-west-1
   tags:
     - vanilla
