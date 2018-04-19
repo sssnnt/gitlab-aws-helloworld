@@ -1,4 +1,19 @@
-Description: To make cloudformation be able to deploy
+Description: To make cloudformation be able to deploy with a Gitlab runner in AWS.
+
+Metadata: 
+  AWS::CloudFormation::Interface: 
+    ParameterGroups: 
+      - Label: 
+          default: "Gitlab runner"
+        Parameters: 
+          - GitlabRunnerAccount          
+          - GitlabRunnerRoleName
+
+    ParameterLabels:
+      GitlabRunnerAccount:
+        default: "What is the Account number of the AWS account the Gitlab runner is running in?"
+      GitlabRunnerRoleName:
+        default: "What is the name of the IAM role for Gitlab runner host?"
 
 Parameters:
     GitlabRunnerAccount:
@@ -7,15 +22,14 @@ Parameters:
   
     GitlabRunnerRoleName:
       Type: String
-      Description: The Gitlab runner role name in AWS. Can sometimes be found at https://console.aws.amazon.com/iam/home (may require you to be logged in). Example, for the Role ARN arn:aws:iam::1234567890987:role/gitlab-runner-GitlabRunnerRole use "gitlab-runner-GitlabRunnerRole"
-      Default: gitlab-runner-GitlabRunnerRole
+      Description: The Gitlab runner role name in AWS. Tip. Go to https://console.aws.amazon.com/iam/home#/roles and search for "GitlabRunnerRole". Example. For the Role ARN arn:aws:iam::1234567890987:role/gitlab-runner-GitlabRunnerRole the name to use is "gitlab-runner-GitlabRunnerRole"
 
 Resources:
   DeployRole:
     Type: AWS::IAM::Role
     Properties:
       Path: /
-      RoleName: DeployRole
+      RoleName: !Sub ${AWS::StackName}-DeployRole
       AssumeRolePolicyDocument:
         Version: "2012-10-17"
         Statement:

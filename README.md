@@ -54,22 +54,35 @@ We will now deploy a cloudformation template in AWS that creates a role with the
 ![Cloudoformation output](images/cloudformation-output.png)
 
 ### Setup the AWS account and role in Gitlab
-Since the AWS account we want to deploy to may not be the same as the AWS account where the Gitlab runner host runs in, we need to tell Gitlab runner which account to deploy to and which role to assume. We do that by creating two secret variables in Gitlab.
+We need to tell the Gitlab runner which account to deploy to and which role to assume. We do that by creating two secret variables in Gitlab.
 1. In the project in Gitlab click "Settings"
-2. Click "CI/CD"
+2. Click "CI / CD"
 3. Next to "Secret variables", click the "Expand" button
-4. For the account number. In the "Input variable key" field enter "AWS_ACCOUNTNO" spelled exactly as stated.
+4. For the account number. In the "Input variable key" field enter "AWS_ACCOUNTNO".
 5. As the "Input variable value" enter the AWS account number where you created the deploy role above. Can be found at <a href="https://console.aws.amazon.com/support/home" target="_blank">https://console.aws.amazon.com/support/home</a>, under "Account number". __Note: You need to be logged in to the AWS account where you deployed the permissions template above to get the correct account number__.
 6. (Recommended) Click the "Protected" switch to avoid having the account number showing up in build logs etc.
 7. In a new "Input variable key" field enter "DEPLOY_ROLE_NAME"
 8. As the "Input variable value" enter the name of the IAM role we created above (the export value you wrote down). This can also be found in <a href="https://console.aws.amazon.com/iam/home#/roles" target="_blank">AWS IAM console</a>. __Note: You need to be logged in to the AWS account where you deployed the "hello-truck-ecs-deploy-permissions.yml" template to find it__. **Tip**: in the IAM Console for roles, try searching for "*DeployRole*".
 
-9. Click the "Save variables" button
+Example of the secret variables setup in Gitlab:
+![Example of the secret variables setup](images/secret-variables-setup-example.png)
+
+9. Click the "Save variables" button.
 
 
+## Run the deployment
+Now it is time to deploy the AWS ECS cluster to your AWS account.
+1. In Gitlab, click on "CI / CD" and then "Pipelines"
+2. Click "Run Pipeline"
+3. Click "Create pipeline" button on the "New Pipeline" page 
+4. Lean back and wait for your Gitlab runner to deploy the ECS cluster to your AWS account.
 
-### Test run
-To fire up everything and test your new pipeline just commit your code and push it to your remote repo on Gitlab. Your pipeline should start building in a few seconds resulting in a AWS ECS Cluster named ``hello-world`` in your  AWS account. 
+## The end result
+Logged in to AWS you can follow the progress in the <a href="https://console.aws.amazon.com/cloudformation/home?#/stacks" target="_blank">Cloudformation console</a>.
+
+When the stack is created you can find the Cluster in AWS by navigating to
+
+
 
 __Happy Hacking__
 
