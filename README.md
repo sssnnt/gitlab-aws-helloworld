@@ -78,17 +78,39 @@ Now it is time to deploy the AWS ECS cluster to your AWS account.
 4. Lean back and wait for your Gitlab runner to deploy the ECS cluster to your AWS account.
 
 ## The end result
-Logged in to AWS you can follow the progress in the <a href="https://console.aws.amazon.com/cloudformation/home?#/stacks" target="_blank">Cloudformation console</a>.
+Logged in to AWS you can after a while follow the progress in the <a href="https://console.aws.amazon.com/cloudformation/home?#/stacks" target="_blank">Cloudformation console</a>.
 
-When the stack is created you can find the Cluster in AWS by navigating to
+When the stack is created you can find the Cluster in AWS by navigating to the <a href="https://console.aws.amazon.com/ecs/home?#/clusters" target="_blank">ECS console</a>.
 
+## Deleting
+When you do not longer want your Gitlab project and AWS Cluster you can easily remove them.
+
+Remove the ECS Cluster and the permissions stacks by the following steps when logged in to AWS:
+1. Navigate to the <a href="https://console.aws.amazon.com/cloudformation/home" target="_blank">Cloudformation console</a>. 
+2. Select the `gitlab-aws-helloworld` stack. 
+3. Click on "Actions" followed by "Delete Stack". 
+4. Repeat step 2-3 for the permissions stack.
+
+Remove the Gitlab project by the following steps when you are logged into Gitlab:
+ * For the project, click on "Settings"
+ * Click "General"
+ * Next to "Advanced settings", click the "Expand" button
+ * Click the "Remove project" at the bottom of the page.
+ * In the confirmation window, enter the project name (`gitlab-aws-helloworld`)
+ * Click "Confirm"
+ 
 
 
 __Happy Hacking__
 
-*Scania Devtools team*
+*Scania Devtools Team*
 
+## Want to contribute?
+Got to the <a href="CONTRIBUTING.md">CONTRIBUTING</a> page.
 
+## References
+
+More on [AWS ECS](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/Welcome.html)
 
 
 
