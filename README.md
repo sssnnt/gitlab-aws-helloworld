@@ -1,4 +1,5 @@
 ![Publish Status](https://codebuild.eu-west-1.amazonaws.com/badges?uuid=eyJlbmNyeXB0ZWREYXRhIjoibGhwMFZSeEN0V3kzV1pDWmRiYkZKbWVDLzFORG81aytqbm93WWU4aTJpVUxNOVp4UTk1WklZakJIdWt3RDFnUEpVbHY5MlU2MEl3ZG5qMjRIS2tVVWo0PSIsIml2UGFyYW1ldGVyU3BlYyI6IklnYlFBaEtyZkVoaHFkWkoiLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D&branch=master)
+
 AWS deployment of HelloWorld using Gitlab runner in AWS
 =======================================================
 
