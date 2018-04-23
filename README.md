@@ -74,7 +74,7 @@ Example of the secret variables setup in Gitlab:
 
 ## Run the deployment
 Now it is time to deploy the AWS ECS cluster to your AWS account.
-1. In Gitlab, click on "CI / CD" and then "Pipelines"
+1. In Gitlab, click on "CI / CD" in the main menu (to the left) and then "Pipelines"
 2. Click "Run Pipeline"
 3. Click "Create pipeline" button on the "New Pipeline" page 
 4. Lean back and wait for your Gitlab runner to deploy the ECS cluster to your AWS account.
