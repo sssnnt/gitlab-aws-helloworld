@@ -4,27 +4,27 @@ AWS deployment of HelloWorld using Gitlab runner in AWS
 =======================================================
 
 
-This repo demonstrates deployment of an AWS resource to AWS using the [Scaniadevtools Gitlab runner](https://github.com/scaniadevtools/gitlab-runner), a Gitlab runner in AWS. When the Gitlab pipeline is triggered, a Cloudformation template is <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-validate-template.html" target="_blank">validated</a> and <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-cli-creating-stack.html" target="_blank">deployed</a> to a specified AWS account creating an an <a href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ECS_clusters.html" target="_blank">AWS ECS Cluster</a>. 
+This repo demonstrates deployment of an AWS resource to AWS using the [Scaniadevtools Gitlab runner](https://github.com/scaniadevtools/gitlab-runner), a Gitlab runner in AWS. When a Gitlab pipeline is triggered, a Cloudformation template is <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-validate-template.html" target="_blank">validated</a> and <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-cli-creating-stack.html" target="_blank">deployed</a> to a specified AWS account creating an an <a href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ECS_clusters.html" target="_blank">AWS ECS Cluster</a> using the Gitlab runner in AWS. 
 
 ## Purpose
-The purpose of this repo is threefold
+The purpose of this repo is threefold:
 
 1. To demonstrate the use of the Scaniadevtool Gitlab runner
 
 2. Serve as a getting started guide on how to setup CI/CD project deploying resources to AWS using Gitlab and the Scaniadevtools Gitlab runner
 
-3. To provide a working starting point that can be extended so you can hit the ground running to create your own CI/CD projects deploying resources to AWS with Gitlab and the Gitlab runner.
+3. To provide a working starting point that can be extended so you can hit the ground running creating your own CI/CD projects deploying resources to AWS with Gitlab and the Scaniadevtools Gitlab runner.
 ___
 > The Gitlab runner used in the instructions below is setup from the Github repo [https://github.com/scaniadevtools/gitlab-runner](https://github.com/scaniadevtools/gitlab-runner). If you have configured your runner differently the instructions in this repo may not apply.
 
 # Outline of the end result
-After following the setup instructions below you will have a copy of this repository as a Gitlab project and a working Gitlab CI/CD pipeline that has deployed a simple AWS resource to your AWS account (an ECS cluster was the simples resource we could find to use for this purpose). The setup has also created a new role in your AWS account with permissions to deploy the ECS Cluster allowing the Gitlab runner's host's AWS IAM role to (assume) use this role and deploy to your AWS account. 
+After following the setup instructions below you will have a copy of this repository as a Gitlab project and a working Gitlab CI/CD pipeline that has deployed a simple AWS resource to your AWS account (it will be an ECS cluster since that was the simples resource we could find to use for this purpose). The setup has also created a new role in your AWS account with permissions to deploy the ECS Cluster allowing the Gitlab runner's host's AWS IAM role to use (assume) this role and deploy to your AWS account. 
 
 ![The setup](images/gitlab-runner-architecture.png)
 
-The picture shows an example of this setup where the Gitlab runner is running in account *1111111*, deploying ECS Cluster to account *999999* as the *helloworld-deploy-permissions-DeployRole* assumed by the *GitlabRunnerRole* the Gitlab runner has.
+The picture shows an example of this setup where the Gitlab runner is running in account *1111111*, deploying the ECS Cluster to account *999999* as the *helloworld-deploy-permissions-DeployRole* assumed by the *GitlabRunnerRole* the Gitlab runner has.
 
-Looks complex? Hopefully it will be much clearer when you walks through the setup.
+Looks complex? Hopefully it will be much clearer when you go through the setup.
 
 # Setting up this project
 
@@ -32,7 +32,9 @@ Looks complex? Hopefully it will be much clearer when you walks through the setu
 ## Before you start
 To run this project you should  have the following ready:
 * An AWS account to deploy the cluster to. 
-* A Gitlab runner in an AWS account (does not need to be the same account you deploy to). The runner should have been setup from the Github repo: [https://github.com/scaniadevtools/gitlab-runner](https://github.com/scaniadevtools/gitlab-runner)
+
+* A Gitlab runner in an AWS account (does not need to be the same account you deploy to). The runner should have been setup from the [Scaniadevtools gitlab-runner Github](https://github.com/scaniadevtools/gitlab-runner) repo.
+
 * An account on the Gitlab server the runner is connected to. This can be gitlab.com or an enterprise Gitlab installation.
 
 ## Setup and install
@@ -52,8 +54,6 @@ When the project copy is created in Gitlab we need to assign a runner to it. In 
 3. Under "Available specific runners", find the runner tagged with "vanilla" and click the "Enable for this project" button.
 
 You runner is now assigned to the project and can start picking up jobs. However, for the jobs not to fail due to insufficient permissions we need to create a deploy role in AWS. See next section.
-
-> If you don't have an existing runner in AWS to assign to the project, you can deploy one from <a href="https://github.com/scaniadevtools/gitlab-runner" target="_blank">https://github.com/scaniadevtools/gitlab-runner</a>.
 
 > <a href="https://docs.gitlab.com/ee/ci/runners/#assigning-a-runner-to-another-project" target="_blank">Read more on assigning runners to project</a>
 
@@ -141,7 +141,10 @@ Remove the Gitlab project by the following steps when you are logged into Gitlab
  * In the confirmation window, enter the project name (`gitlab-aws-helloworld`)
  * Click "Confirm"
  
-
+## Troubleshooting
+### I get stack already exist error when deploying the permissions file.
+![](images/stack-already-exists.png)
+This means that there is already a cloudformation stack deployed in your account with the same name you are trying to use. Provide a unique name in the "Stack name" field. Note, 
 
 
 ## References

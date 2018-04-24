@@ -46,7 +46,7 @@ Resources:
   DeployPolicy:
     Type: AWS::IAM::ManagedPolicy
     Properties:
-      ManagedPolicyName: DeployPolicy
+      ManagedPolicyName: !Sub ${AWS::StackName}-DeployPolicy
       PolicyDocument:
         Version: 2012-10-17
         Statement:
