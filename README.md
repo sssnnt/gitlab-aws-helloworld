@@ -179,6 +179,7 @@ This means that there is already a cloudformation stack deployed in your account
 Read more [here](https://docs.gitlab.com/ee/ci/runners/#locking-a-specific-runner-from-being-enabled-for-other-projects).
 
 * Make sure there is a runner tagged with "vanilla". This is done in the runner settings on the project the runner was first assigned to.
+
 ![vanilla tag](images/vanilla-tag.png)
 
 ## I get (AccessDenided) when running the pipeline
@@ -191,6 +192,7 @@ Read more [here](https://docs.gitlab.com/ee/ci/runners/#locking-a-specific-runne
 
 ##  When to run the deployment I can't find any "Pipelines" menu in the CI /CD section
 You are looking in the "Settings" menu and not the "CI /CD" menu. Look to the far left of the browser window, approximately in the middle of all the menues.
+
 ![](images/cicd-menu.png)
 
 ## I get (AlreadyExistsException) when running the pipeline
