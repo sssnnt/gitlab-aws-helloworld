@@ -164,15 +164,20 @@ Remove the Gitlab project by the following steps when you are logged into Gitlab
  
 ## Troubleshooting
 
-### I get "stack already exist" error when deploying the permissions file.
+## I get "stack already exist" error when deploying the permissions file
 ![](images/stack-already-exists.png)
 
 This means that there is already a cloudformation stack deployed in your account with the same name you are trying to use. Either delete the existing stack or provide another (unique) name in the "Stack name" field for your stack. __Note__ changing the stack name effects the name of the role that is created by the stack (this name is used in later steps).
 
 ## I don't see the runner that I should assign to my Gitlab project
+
 * You may not have setup any Gitlab runner for your account. Setup one from [https://github.com/scaniadevtools/gitlab-runner/](https://github.com/scaniadevtools/gitlab-runner/)
+
 * The runner you have may be locked to another project. Go to the project where the runner was first created for and unlock the runner.
-![Locked runner](images/locked-runner.png). Read more [here](https://docs.gitlab.com/ee/ci/runners/#locking-a-specific-runner-from-being-enabled-for-other-projects).
+![Locked runner](images/locked-runner.png). 
+
+Read more [here](https://docs.gitlab.com/ee/ci/runners/#locking-a-specific-runner-from-being-enabled-for-other-projects).
+
 * Make sure there is a runner tagged with "vanilla". This is done in the runner settings on the project the runner was first assigned to.
 ![vanilla tag](images/vanilla-tag.png)
 
@@ -190,7 +195,7 @@ You are looking in the "Settings" menu and not the "CI /CD" menu. Look to the fa
 
 ## I get (AlreadyExistsException) when running the pipeline
 
-You have probable run the pipeline already and then a stack is already created. Go into the AWS Cloudformation console and delete the `gitlab-aws-helloworld` stack before you run the pipeline. 
+You have probably run the pipeline already and then the stack is already created. Go into the AWS Cloudformation console and delete the `gitlab-aws-helloworld` stack before you run the pipeline. 
 
 ## References
 
