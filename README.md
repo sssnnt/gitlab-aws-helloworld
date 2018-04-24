@@ -174,6 +174,7 @@ This means that there is already a cloudformation stack deployed in your account
 * You may not have setup any Gitlab runner for your account. Setup one from [https://github.com/scaniadevtools/gitlab-runner/](https://github.com/scaniadevtools/gitlab-runner/)
 
 * The runner you have may be locked to another project. Go to the project where the runner was first created for and unlock the runner.
+
 ![Locked runner](images/locked-runner.png). 
 
 Read more [here](https://docs.gitlab.com/ee/ci/runners/#locking-a-specific-runner-from-being-enabled-for-other-projects).
