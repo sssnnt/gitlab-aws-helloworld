@@ -21,6 +21,7 @@ ___
 After following the setup instructions below you will have a copy of this repository as a Gitlab project and a working Gitlab CI/CD pipeline that has deployed a simple AWS resource to your AWS account (an ECS cluster was the simples resource we could find to use for this purpose). The setup has also created a new role in your AWS account with permissions to deploy the ECS Cluster allowing the Gitlab runner's host's AWS IAM role to (assume) use this role and deploy to your AWS account. 
 
 ![The setup](images/gitlab-runner-architecture.png)
+
 The picture shows an example of this setup where the Gitlab runner is running in account *1111111*, deploying ECS Cluster to account *999999* as the *helloworld-deploy-permissions-DeployRole* assumed by the *GitlabRunnerRole* the Gitlab runner has.
 
 Looks complex? Hopefully it will be much clearer when you walks through the setup.
