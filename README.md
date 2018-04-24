@@ -4,11 +4,30 @@ AWS deployment of HelloWorld using Gitlab runner in AWS
 =======================================================
 
 
-This repo demonstrates deployment of an AWS resource to AWS using a Gitlab runner in AWS. When the Gitlab pipeline is triggered, a Cloudformation template is <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-validate-template.html" target="_blank">validated</a> and <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-cli-creating-stack.html" target="_blank">deployed</a> to a specified AWS account creating an an <a href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ECS_clusters.html" target="_blank">AWS ECS Cluster</a>.
+This repo demonstrates deployment of an AWS resource to AWS using the [Scaniadevtools Gitlab runner](https://github.com/scaniadevtools/gitlab-runner), a Gitlab runner in AWS. When the Gitlab pipeline is triggered, a Cloudformation template is <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-validate-template.html" target="_blank">validated</a> and <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-cli-creating-stack.html" target="_blank">deployed</a> to a specified AWS account creating an an <a href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ECS_clusters.html" target="_blank">AWS ECS Cluster</a>. 
+
+## Purpose
+The purpose of this repo is threefold
+
+1. To demonstrate the use of the Scaniadevtool Gitlab runner
+
+2. Serve as a getting started guide on how to setup CI/CD project deploying resources to AWS using Gitlab and the Scaniadevtools Gitlab runner
+
+3. To provide a working starting point that can be extended so you can hit the ground running to create your own CI/CD projects deploying resources to AWS with Gitlab and the Gitlab runner.
 ___
-The Gitlab runner used in the instructions below is setup from the Github repo [https://github.com/scaniadevtools/gitlab-runner](https://github.com/scaniadevtools/gitlab-runner) using AWS ECS, Docker and Cloudformation. If you have configured your runner differently the instructions in this repo may not apply.
+> The Gitlab runner used in the instructions below is setup from the Github repo [https://github.com/scaniadevtools/gitlab-runner](https://github.com/scaniadevtools/gitlab-runner). If you have configured your runner differently the instructions in this repo may not apply.
+
+# Outline of the end result
+After following the setup instructions below you will have a copy of this repository as a Gitlab project and a working Gitlab CI/CD pipeline that has deployed a simple AWS resource to your AWS account (an ECS cluster was the simples resource we could find to use for this purpose). The setup has also created a new role in your AWS account with permissions to deploy the ECS Cluster allowing the Gitlab runner's host's AWS IAM role to (assume) use this role and deploy to your AWS account. 
+
+![The setup](images/gitlab-runner-architecture.png)
+The picture shows an example of this setup where the Gitlab runner is running in account *1111111*, deploying ECS Cluster to account *999999* as the *helloworld-deploy-permissions-DeployRole* assumed by the *GitlabRunnerRole* the Gitlab runner has.
+
+Looks complex? Hopefully it will be much clearer when you walks through the setup.
 
 # Setting up this project
+
+
 ## Before you start
 To run this project you should  have the following ready:
 * An AWS account to deploy the cluster to. 
@@ -82,8 +101,28 @@ Now it is time to deploy the AWS ECS cluster to your AWS account.
 ## The end result
 Logged in to AWS you can after a while follow the progress in the <a href="https://console.aws.amazon.com/cloudformation/home?#/stacks" target="_blank">Cloudformation console</a>.
 
+
+While you are waiting we suggest you go back to the "Outline of the end result" section in the beginning and take a look at the visualization of your efforts in the picture agin.
+ 
 When the stack is created you can find the Cluster in AWS by navigating to the <a href="https://console.aws.amazon.com/ecs/home?#/clusters" target="_blank">ECS console</a>.
 
+## The next steps
+Congratulations! You now have a working pipeline in Gitlab deploying resources to AWS using the Scaniadevtools runner!
+
+Now you can play around with this project to make it setup other AWS resources for you by changing the [`gitlab-aws-helloworld.yml`](gitlab-aws-helloworld.yml) Cloudformation template and when needed the [`.gitlab-ci.yml`](.gitlab-ci.yml). To make it work you also need to change the [`aws-permissions/helloworld-deploy-permissions.yml`](aws-permissions/helloworld-deploy-permissions.yml) and redeploy it to AWS to give permissions to deploy other AWS resources.
+
+If you want to go directly to a more advanced example you can setup a complete ECS cluster with and load balancer, EC2 machines, auto-scaling, logging, Docker and some more in the [https://github.com/scaniadevtools/hello-truck-ecs](https://github.com/scaniadevtools/hello-truck-ecs) Github repo.
+
+
+
+__Happy Hacking__
+
+*Scania Devtools Team*
+
+## Want to contribute?
+Got to the <a href="CONTRIBUTING.md">CONTRIBUTING</a> page.
+
+# Appendix
 ## Deleting
 When you do not longer want your Gitlab project and AWS Cluster you can easily remove them.
 
@@ -103,20 +142,18 @@ Remove the Gitlab project by the following steps when you are logged into Gitlab
  
 
 
-__Happy Hacking__
-
-*Scania Devtools Team*
-
-## Want to contribute?
-Got to the <a href="CONTRIBUTING.md">CONTRIBUTING</a> page.
 
 ## References
 
 More on [AWS ECS](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/Welcome.html)
 
+The [Scaniadevtools Gitlab runner](https://github.com/scaniadevtools/gitlab-runner)
 
+The Docker image used in the `.gitlab-ci.yml` file for deployment can be found at [https://github.com/scaniadevtools/aws-deployer](https://github.com/scaniadevtools/aws-deployer)
 
+[Gitlab runners](https://docs.gitlab.com/runner/)
 
+[Using .gitlab-ci.yml](https://docs.gitlab.com/ee/ci/yaml/)
 
 
 
