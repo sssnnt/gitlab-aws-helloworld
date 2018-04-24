@@ -4,7 +4,12 @@ AWS deployment of HelloWorld using Gitlab runner in AWS
 =======================================================
 
 
+# Introduction
+
 This repo demonstrates deployment of an AWS resource to AWS using the [Scaniadevtools Gitlab runner](https://github.com/scaniadevtools/gitlab-runner), a Gitlab runner in AWS. When a Gitlab pipeline is triggered, a Cloudformation template is <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-validate-template.html" target="_blank">validated</a> and <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-cli-creating-stack.html" target="_blank">deployed</a> to a specified AWS account creating an an <a href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ECS_clusters.html" target="_blank">AWS ECS Cluster</a> using the Gitlab runner in AWS. 
+
+
+
 
 ## Purpose
 The purpose of this repo is threefold:
@@ -17,7 +22,15 @@ The purpose of this repo is threefold:
 ___
 > The Gitlab runner used in the instructions below is setup from the Github repo [https://github.com/scaniadevtools/gitlab-runner](https://github.com/scaniadevtools/gitlab-runner). If you have configured your runner differently the instructions in this repo may not apply.
 
-# Outline of the end result
+
+# Setting up this project
+This section describes how to install and configure AWS, Gitlab and the Gitlab project to get a working result.
+ 
+An advice on the road. The setup is heavily dependent on names and account numbers used for finding the right resources. Thus, read and follow the instructions carefully and make sure you spell everything exactly as stated.
+
+If you run into trouble, take a look at the [troubleshooting section](#troubleshooting) in the Appendix.
+
+## Outline of the end result
 After following the setup instructions below you will have a copy of this repository as a Gitlab project and a working Gitlab CI/CD pipeline that has deployed a simple AWS resource to your AWS account (it will be an ECS cluster since that was the simples resource we could find to use for this purpose). The setup has also created a new role in your AWS account with permissions to deploy the ECS Cluster allowing the Gitlab runner's host's AWS IAM role to use (assume) this role and deploy to your AWS account. 
 
 ![The setup](images/gitlab-runner-architecture.png)
@@ -26,11 +39,9 @@ The picture shows an example of this setup where the Gitlab runner is running in
 
 Looks complex? Hopefully it will be much clearer when you go through the setup.
 
-# Setting up this project
-
-
 ## Before you start
 To run this project you should  have the following ready:
+
 * An AWS account to deploy the cluster to. 
 
 * A Gitlab runner in an AWS account (does not need to be the same account you deploy to). The runner should have been setup from the [Scaniadevtools gitlab-runner Github](https://github.com/scaniadevtools/gitlab-runner) repo.
@@ -110,7 +121,7 @@ When the stack is created you can find the Cluster in AWS by navigating to the <
 ## The next steps
 Congratulations! You now have a working pipeline in Gitlab deploying resources to AWS using the Scaniadevtools runner!
 
-Now you can play around with this project to make it setup other AWS resources for you by changing the [`gitlab-aws-helloworld.yml`](gitlab-aws-helloworld.yml) Cloudformation template and when needed the [`.gitlab-ci.yml`](.gitlab-ci.yml). To make it work you also need to change the [`aws-permissions/helloworld-deploy-permissions.yml`](aws-permissions/helloworld-deploy-permissions.yml) and redeploy it to AWS to give permissions to deploy other AWS resources.
+Now you can play around with this project to make it setup other AWS resources for you by changing the [`gitlab-aws-helloworld.yml`](gitlab-aws-helloworld.yml) cloudformation template and when needed the [`.gitlab-ci.yml`](.gitlab-ci.yml). To make it work you also need to change the [`aws-permissions/helloworld-deploy-permissions.yml`](aws-permissions/helloworld-deploy-permissions.yml) and redeploy it to AWS to give permissions to deploy other AWS resources.
 
 If you want to go directly to a more advanced example you can setup a complete ECS cluster with and load balancer, EC2 machines, auto-scaling, logging, Docker and some more in the [https://github.com/scaniadevtools/hello-truck-ecs](https://github.com/scaniadevtools/hello-truck-ecs) Github repo.
 
@@ -128,24 +139,58 @@ Got to the <a href="CONTRIBUTING.md">CONTRIBUTING</a> page.
 When you do not longer want your Gitlab project and AWS Cluster you can easily remove them.
 
 Remove the ECS Cluster and the permissions stacks by the following steps when logged in to AWS:
+
 1. Navigate to the <a href="https://console.aws.amazon.com/cloudformation/home" target="_blank">Cloudformation console</a>. 
+
 2. Select the `gitlab-aws-helloworld` stack. 
+
 3. Click on "Actions" followed by "Delete Stack". 
+
 4. Repeat step 2-3 for the permissions stack.
 
 Remove the Gitlab project by the following steps when you are logged into Gitlab:
+
  * For the project, click on "Settings"
+
  * Click "General"
+
  * Next to "Advanced settings", click the "Expand" button
+
  * Click the "Remove project" at the bottom of the page.
+
  * In the confirmation window, enter the project name (`gitlab-aws-helloworld`)
+
  * Click "Confirm"
  
 ## Troubleshooting
-### I get stack already exist error when deploying the permissions file.
-![](images/stack-already-exists.png)
-This means that there is already a cloudformation stack deployed in your account with the same name you are trying to use. Provide a unique name in the "Stack name" field. Note, 
 
+### I get "stack already exist" error when deploying the permissions file.
+![](images/stack-already-exists.png)
+
+This means that there is already a cloudformation stack deployed in your account with the same name you are trying to use. Either delete the existing stack or provide another (unique) name in the "Stack name" field for your stack. __Note__ changing the stack name effects the name of the role that is created by the stack (this name is used in later steps).
+
+## I don't see the runner that I should assign to my Gitlab project
+* You may not have setup any Gitlab runner for your account. Setup one from [https://github.com/scaniadevtools/gitlab-runner/](https://github.com/scaniadevtools/gitlab-runner/)
+* The runner you have may be locked to another project. Go to the project where the runner was first created for and unlock the runner.
+![Locked runner](images/locked-runner.png). Read more [here](https://docs.gitlab.com/ee/ci/runners/#locking-a-specific-runner-from-being-enabled-for-other-projects).
+* Make sure there is a runner tagged with "vanilla". This is done in the runner settings on the project the runner was first assigned to.
+![vanilla tag](images/vanilla-tag.png)
+
+## I get (AccessDenided) when running the pipeline
+* You have not setup the AWS_ACCOUNTNO or DEPLOY_ROLE_NAME secret variables correctly. Check spelling, account number and role name. 
+* The permissions file was not deployed correctly, check the Cloudformation Stack creation events and output
+* The permissions template file was deployed to the wrong AWS account. Check that it was deployed to the account where you want to deploy AWS resources
+* The account no in the secret variable is not the one the permission template file was deployed to. Check that the AWS_ACCOUNTNO variable value is the account number where you deployed the permissions template file to.
+* The Gitlab runner IAM role name provided for the permission stack creation is not correct. Check that the role name provided when creating the stack was correctly spelled and is only the name and to e.g. the full ARN.
+![](images/runner-role-name.png)
+
+##  When to run the deployment I can't find any "Pipelines" menu in the CI /CD section
+You are looking in the "Settings" menu and not the "CI /CD" menu. Look to the far left of the browser window, approximately in the middle of all the menues.
+![](images/cicd-menu.png)
+
+## I get (AlreadyExistsException) when running the pipeline
+
+You have probable run the pipeline already and then a stack is already created. Go into the AWS Cloudformation console and delete the `gitlab-aws-helloworld` stack before you run the pipeline. 
 
 ## References
 
