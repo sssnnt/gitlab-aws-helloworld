@@ -3,7 +3,6 @@
 AWS deployment of HelloWorld using Gitlab runner in AWS
 =======================================================
 
-
 # Introduction
 
 This repo demonstrates deployment of an AWS resource to AWS using the [Scaniadevtools Gitlab runner](https://github.com/scaniadevtools/gitlab-runner), a Gitlab runner in AWS. When a Gitlab pipeline is triggered, a Cloudformation template is <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-validate-template.html" target="_blank">validated</a> and <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-cli-creating-stack.html" target="_blank">deployed</a> to a specified AWS account creating an an <a href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ECS_clusters.html" target="_blank">AWS ECS Cluster</a> using the Gitlab runner in AWS. 
