@@ -187,8 +187,8 @@ Read more [here](https://docs.gitlab.com/ee/ci/runners/#locking-a-specific-runne
 * You have not setup the AWS_ACCOUNTNO or DEPLOY_ROLE_NAME secret variables correctly. Check spelling, account number and role name. 
 * The permissions file was not deployed correctly, check the Cloudformation Stack creation events and output
 * The permissions template file was deployed to the wrong AWS account. Check that it was deployed to the account where you want to deploy AWS resources
-* The account no in the secret variable is not the one the permission template file was deployed to. Check that the AWS_ACCOUNTNO variable value is the account number where you deployed the permissions template file to.
-* The Gitlab runner IAM role name provided for the permission stack creation is not correct. Check that the role name provided when creating the stack was correctly spelled and is only the name and to e.g. the full ARN.
+* The account no in the secret variable value is not the one the permission template file was deployed to. Check that the AWS_ACCOUNTNO variable value is the account number where you deployed the permissions template file to.
+* The Gitlab runner IAM role name provided for the permission stack creation is not correct. Check that the role name provided when creating the stack was correctly spelled and contains only the name and not e.g. the full ARN.
 ![](images/runner-role-name.png)
 
 ##  When to run the deployment I can't find any "Pipelines" menu in the CI /CD section
