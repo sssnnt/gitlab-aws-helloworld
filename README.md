@@ -55,7 +55,7 @@ Create a copy of this repo to a Gitlab project in your Gitlab account:
 * Click the "Import project" tab
 * Select "Repo by URL"
 * In the "Git repository URL" enter "https://github.com/scaniadevtools/gitlab-aws-helloworld"
-* Click "Crete project" button at the bottom of the page.
+* Click "Create project" button at the bottom of the page.
 > <a href="https://docs.gitlab.com/ee/user/project/import/repo_by_url.html" target="_blank">Read more on import project with Repo from URL</a>
 
 ### Assign the runner to the project
